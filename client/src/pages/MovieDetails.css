@@ -1,0 +1,867 @@
+/* MovieDetails.css */
+
+.movie-details {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 68px;
+}
+
+/* Backdrop */
+.movie-details__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.movie-details__backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, #080808 100%);
+}
+
+/* Inner */
+.movie-details__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.movie-details__top {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+/* Poster */
+.movie-details__poster-wrap {
+  flex-shrink: 0;
+  width: 280px;
+}
+
+.movie-details__poster {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+/* Info */
+.movie-details__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.movie-details__badges {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.movie-details__cert {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255,255,255,0.8);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.movie-details__status-badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.movie-details__status-badge--now {
+  background: rgba(229, 9, 20, 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+}
+
+.movie-details__status-badge--upcoming {
+  background: rgba(255, 165, 0, 0.12);
+  color: #FFA500;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.movie-details__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 1rem;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.movie-details__meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.movie-details__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.movie-details__rating strong {
+  color: #FFD700;
+  font-size: 1.1rem;
+}
+
+.movie-details__rating span {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.movie-details__sep {
+  color: rgba(255,255,255,0.2);
+}
+
+.movie-details__dur,
+.movie-details__lang {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.movie-details__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.movie-details__genre {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: rgba(229, 9, 20, 0.12);
+  color: rgba(229, 9, 20, 0.9);
+  border: 1px solid rgba(229, 9, 20, 0.25);
+}
+
+.movie-details__description {
+  font-size: 0.97rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+/* Crew */
+.movie-details__crew {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+}
+
+.movie-details__crew-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.movie-details__crew-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.movie-details__crew-value {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+
+.movie-details__price-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.movie-details__price-label {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.movie-details__price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.movie-details__book-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2.5rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.4);
+}
+
+.movie-details__book-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 0 40px rgba(229, 9, 20, 0.6);
+  transform: translateY(-2px);
+}
+
+.movie-details__book-btn--upcoming {
+  background: rgba(255, 165, 0, 0.2);
+  color: #FFA500;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.movie-details__book-btn--upcoming:hover {
+  transform: none;
+}
+
+/* Related */
+.movie-details__related {
+  background: rgba(0,0,0,0.6);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 4rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.movie-details__related-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.movie-details__related-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.movie-details__related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+/* ── Booking Overlay ── */
+.booking-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(8px);
+  overflow-y: auto;
+}
+
+.booking-panel {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.booking-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: sticky;
+  top: 0;
+  background: #111;
+  z-index: 1;
+}
+
+.booking-panel__header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.booking-panel__close {
+  background: rgba(255,255,255,0.07);
+  border: none;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.booking-panel__close:hover {
+  background: rgba(229, 9, 20, 0.15);
+  color: var(--accent);
+}
+
+.booking-step {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.booking-section {
+  margin-bottom: 1.5rem;
+}
+
+.booking-section h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 0.75rem;
+}
+
+/* Dates */
+.booking-dates {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.booking-date {
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.booking-date:hover {
+  border-color: rgba(229, 9, 20, 0.4);
+  color: #fff;
+}
+
+.booking-date--active {
+  background: rgba(229, 9, 20, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Theatre */
+.booking-theatre {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.booking-theatre:hover {
+  border-color: rgba(229, 9, 20, 0.3);
+  background: rgba(229, 9, 20, 0.05);
+}
+
+.booking-theatre--active {
+  border-color: var(--accent) !important;
+  background: rgba(229, 9, 20, 0.1) !important;
+}
+
+.booking-theatre__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.booking-theatre__info strong {
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.booking-theatre__info > span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.booking-theatre__amenities {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.booking-amenity {
+  font-size: 0.7rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.booking-theatre__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  flex-shrink: 0;
+}
+
+/* Showtimes */
+.booking-showtimes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.booking-showtime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.booking-showtime:hover:not(:disabled) {
+  border-color: rgba(229, 9, 20, 0.4);
+}
+
+.booking-showtime--active {
+  background: rgba(229, 9, 20, 0.15) !important;
+  border-color: var(--accent) !important;
+}
+
+.booking-showtime--full {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.booking-showtime__time {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.booking-showtime__type {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.booking-showtime__full {
+  font-size: 0.65rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Buttons */
+.booking-next-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.booking-next-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+}
+
+.booking-next-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.booking-back-btn {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.booking-back-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.booking-confirm-btn {
+  flex: 1;
+  padding: 0.85rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.booking-confirm-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+}
+
+.booking-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  align-items: center;
+}
+
+/* Seat map */
+.seat-legend {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.seat-legend span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.seat-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.seat-dot--available { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); }
+.seat-dot--selected { background: var(--accent); }
+.seat-dot--booked { background: rgba(255,255,255,0.06); }
+
+.seat-screen {
+  text-align: center;
+  padding: 0.5rem;
+  background: linear-gradient(to bottom, rgba(229, 9, 20, 0.2), transparent);
+  border-top: 2px solid rgba(229, 9, 20, 0.4);
+  border-radius: 4px 4px 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 1rem;
+}
+
+.seat-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.seat-row-label {
+  width: 18px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.3);
+  font-weight: 600;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.seat-type-label {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.25);
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+.seat-row--premium .seat-type-label { color: rgba(229, 9, 20, 0.4); }
+.seat-row--gold .seat-type-label { color: rgba(255, 165, 0, 0.4); }
+
+.seat {
+  width: 26px;
+  height: 24px;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.seat:hover:not(:disabled) {
+  background: rgba(229, 9, 20, 0.2);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.seat--selected {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.4);
+}
+
+.seat--booked {
+  background: rgba(255,255,255,0.03) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+  color: rgba(255,255,255,0.12) !important;
+  cursor: not-allowed;
+}
+
+.seat-row--premium .seat:not(.seat--selected):not(.seat--booked) {
+  border-color: rgba(229, 9, 20, 0.25);
+  background: rgba(229, 9, 20, 0.08);
+}
+
+.seat-row--gold .seat:not(.seat--selected):not(.seat--booked) {
+  border-color: rgba(255, 165, 0, 0.25);
+  background: rgba(255, 165, 0, 0.06);
+}
+
+.seat-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.seat-summary__price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Confirm */
+.booking-confirm {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.booking-confirm__poster {
+  width: 100px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.booking-confirm__info h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.75rem;
+}
+
+.booking-confirm__info p {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.55);
+  margin: 0 0 0.4rem;
+}
+
+.booking-confirm__price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.booking-confirm__price span {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.booking-confirm__price strong {
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.booking-confirm__note {
+  font-size: 0.75rem !important;
+  color: rgba(255, 165, 0, 0.6) !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Success */
+.booking-success {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 440px;
+  animation: slideUp 0.3s ease;
+}
+
+.booking-success__icon {
+  color: #22c55e;
+  margin-bottom: 1rem;
+}
+
+.booking-success h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.75rem;
+}
+
+.booking-success p {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.booking-success-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* Not found */
+.movie-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.movie-not-found button {
+  padding: 0.65rem 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .movie-details__top {
+    flex-direction: column;
+  }
+
+  .movie-details__poster-wrap {
+    width: 200px;
+  }
+
+  .movie-details__crew {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .movie-details__related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .seat {
+    width: 22px;
+    height: 20px;
+    font-size: 0.55rem;
+  }
+
+  .booking-confirm {
+    flex-direction: column;
+  }
+
+  .booking-success {
+    padding: 2rem 1.25rem;
+  }
+}
