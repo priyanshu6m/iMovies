@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Mail, Lock, Eye, EyeOff, User, Film, AlertCircle, CheckCircle } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, User, Film, AlertCircle, CheckCircle, Shield } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { authAPI } from "../services/api";
 import "./Auth.css";
 
 export default function Register() {
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "", adminSecret: "" });
   const [showPwd, setShowPwd] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -54,6 +54,7 @@ export default function Register() {
         name: form.name.trim(),
         email: form.email.trim(),
         password: form.password,
+        ...(form.adminSecret ? { adminSecret: form.adminSecret.trim() } : {}),
       });
 
       if (data && data.user) {
@@ -227,6 +228,23 @@ export default function Register() {
               ))}
             </ul>
           )}
+
+          <div className="auth-field" style={{ marginTop: "0.25rem" }}>
+            <label htmlFor="reg-admin" className="auth-label" style={{ display: "flex", justifyContent: "space-between" }}>
+              <span>Admin Key <span style={{ opacity: 0.5, fontWeight: "normal" }}>(Optional)</span></span>
+            </label>
+            <div className="auth-input-wrap">
+              <Shield size={16} className="auth-input-icon" />
+              <input
+                id="reg-admin"
+                type="password"
+                placeholder="Enter admin123 to register as Admin"
+                value={form.adminSecret}
+                onChange={(e) => setForm({ ...form, adminSecret: e.target.value })}
+                className="auth-input"
+              />
+            </div>
+          </div>
 
           <button
             type="submit"

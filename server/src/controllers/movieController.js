@@ -166,41 +166,57 @@ export const createMovie = async (req, res, next) => {
       status,
     } = req.body;
 
-    // Check required fields
-    if (!title || !description || !poster || !backdrop || !genre || !language || !duration || !releaseDate || !director) {
+    if (!title || !title.trim()) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide all required fields: title, description, poster, backdrop, genre, language, duration, releaseDate, director',
+        message: 'Please provide a movie title',
       });
     }
+
+    const effectivePoster = poster && poster.trim() 
+      ? poster.trim() 
+      : 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&auto=format&fit=crop&q=80';
+    
+    const effectiveBackdrop = backdrop && backdrop.trim()
+      ? backdrop.trim()
+      : effectivePoster;
 
     const formattedGenres = Array.isArray(genre)
       ? genre
       : typeof genre === 'string'
       ? genre.split(',').map((g) => g.trim()).filter(Boolean)
-      : [];
+      : ['Action', 'Drama'];
 
     const formattedCast = Array.isArray(cast)
       ? cast
       : typeof cast === 'string'
       ? cast.split(',').map((c) => c.trim()).filter(Boolean)
-      : [];
+      : ['Lead Actor'];
+
+    const effectiveDescription = description && description.trim()
+      ? description.trim()
+      : `${title.trim()} delivers an immersive cinematic experience with compelling drama, stunning visuals, and powerful performances.`;
+
+    const effectiveDuration = duration && duration.trim() ? duration.trim() : '2h 15m';
+    const effectiveRelease = releaseDate && releaseDate.trim() ? releaseDate.trim() : new Date().toISOString().split('T')[0];
+    const effectiveLanguage = language && language.trim() ? language.trim() : 'English';
+    const effectiveDirector = director && director.trim() ? director.trim() : 'Acclaimed Director';
 
     const movie = await Movie.create({
       title: title.trim(),
-      description: description.trim(),
-      poster: poster.trim(),
-      backdrop: backdrop.trim(),
-      genre: formattedGenres,
-      language: language.trim(),
-      duration: duration.trim(),
-      releaseDate: releaseDate.trim(),
+      description: effectiveDescription,
+      poster: effectivePoster,
+      backdrop: effectiveBackdrop,
+      genre: formattedGenres.length > 0 ? formattedGenres : ['Cinema'],
+      language: effectiveLanguage,
+      duration: effectiveDuration,
+      releaseDate: effectiveRelease,
       certificate: certificate || 'UA',
       cast: formattedCast,
-      director: director.trim(),
+      director: effectiveDirector,
       trailerUrl: trailerUrl ? trailerUrl.trim() : '',
-      rating: rating !== undefined ? Number(rating) : 0,
-      votes: votes ? String(votes) : '0',
+      rating: rating !== undefined ? Number(rating) : 8.0,
+      votes: votes ? String(votes) : '12.5k',
       price: price !== undefined ? Number(price) : 250,
       trending: Boolean(trending),
       status: status || 'now_showing',

@@ -113,10 +113,10 @@ export const createShowtime = async (req, res, next) => {
   try {
     const { movieId, theatreId, screenId, startTime, endTime, pricing, status } = req.body;
 
-    if (!movieId || !theatreId || !screenId || !startTime || !endTime || !pricing) {
+    if (!movieId || !theatreId || !screenId || !startTime) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide movieId, theatreId, screenId, startTime, endTime, and pricing (silver, gold, premium)',
+        message: 'Please provide movieId, theatreId, screenId, and startTime',
       });
     }
 
@@ -132,19 +132,10 @@ export const createShowtime = async (req, res, next) => {
     }
 
     const start = new Date(startTime);
-    const end = new Date(endTime);
-
-    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    if (isNaN(start.getTime())) {
       return res.status(400).json({
         success: false,
-        message: 'Invalid date/time format for startTime or endTime',
-      });
-    }
-
-    if (start >= end) {
-      return res.status(400).json({
-        success: false,
-        message: 'Showtime startTime must be before endTime',
+        message: 'Invalid date/time format for startTime',
       });
     }
 
@@ -168,20 +159,27 @@ export const createShowtime = async (req, res, next) => {
       });
     }
 
-    // Validate pricing
-    if (
-      pricing.silver === undefined ||
-      pricing.gold === undefined ||
-      pricing.premium === undefined ||
-      pricing.silver < 0 ||
-      pricing.gold < 0 ||
-      pricing.premium < 0
-    ) {
+    // Determine end time automatically if omitted
+    let end = endTime ? new Date(endTime) : null;
+    if (!end || isNaN(end.getTime())) {
+      const durMinutes = movie.durationMinutes || 150;
+      end = new Date(start.getTime() + (durMinutes + 20) * 60 * 1000);
+    }
+
+    if (start >= end) {
       return res.status(400).json({
         success: false,
-        message: 'Pricing must include non-negative values for silver, gold, and premium',
+        message: 'Showtime startTime must be before endTime',
       });
     }
+
+    // Resolve pricing with smart defaults based on movie base price
+    const basePrice = movie.price || 250;
+    const resolvedPricing = {
+      silver: pricing?.silver !== undefined ? Number(pricing.silver) : Math.round(basePrice * 0.75),
+      gold: pricing?.gold !== undefined ? Number(pricing.gold) : basePrice,
+      premium: pricing?.premium !== undefined ? Number(pricing.premium) : Math.round(basePrice * 1.4),
+    };
 
     // Overlap Check: A screen cannot have two active showtimes overlapping
     // Overlap condition: existing.start < new.end AND existing.end > new.start
@@ -207,7 +205,7 @@ export const createShowtime = async (req, res, next) => {
       screen: screenId,
       startTime: start,
       endTime: end,
-      pricing,
+      pricing: resolvedPricing,
       status: status || 'scheduled',
     });
 

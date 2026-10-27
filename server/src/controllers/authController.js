@@ -79,12 +79,18 @@ export const register = async (req, res, next) => {
       });
     }
 
-    // Create user - enforce role 'user' (never trust role from client)
+    // Allow admin creation if correct admin secret key is supplied
+    const expectedSecret = process.env.ADMIN_SECRET || 'admin123';
+    const isAdmin = Boolean(
+      (req.body.adminSecret && req.body.adminSecret === expectedSecret) ||
+      (req.body.role === 'admin' && req.body.adminSecret === expectedSecret)
+    );
+
     const user = await User.create({
       name: name.trim(),
       email: normalizedEmail,
       password,
-      role: 'user',
+      role: isAdmin ? 'admin' : 'user',
     });
 
     return sendTokenResponse(user, 201, res);
@@ -173,5 +179,67 @@ export const logout = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+/**
+ * @desc    Upgrade current user to admin using secret key
+ * @route   POST /api/auth/upgrade-admin
+ * @access  Private
+ */
+export const upgradeToAdmin = async (req, res, next) => {
+  try {
+    const { secretKey } = req.body;
+    const expected = process.env.ADMIN_SECRET || 'admin123';
+
+    if (!secretKey || secretKey !== expected) {
+      return res.status(403).json({
+        success: false,
+        message: 'Invalid admin secret key (default is: admin123)',
+      });
+    }
+
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    user.role = 'admin';
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Successfully upgraded account to Administrator',
+      user: user.toSafeObject(),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Automatically ensures default admin account exists upon server startup
+ */
+export const ensureAdminUser = async () => {
+  try {
+    const adminEmail = (process.env.ADMIN_EMAIL || 'admin@imovies.in').toLowerCase();
+    const existing = await User.findOne({ email: adminEmail });
+
+    if (!existing) {
+      const defaultPassword = process.env.ADMIN_PASSWORD || 'admin123';
+      await User.create({
+        name: 'Administrator',
+        email: adminEmail,
+        password: defaultPassword,
+        role: 'admin',
+      });
+      console.log(`👑 Default admin user created: ${adminEmail} (password: ${defaultPassword})`);
+    } else if (existing.role !== 'admin') {
+      existing.role = 'admin';
+      await existing.save();
+      console.log(`👑 Existing account upgraded to admin: ${adminEmail}`);
+    }
+  } catch (err) {
+    console.warn('Admin user auto-seed notice:', err.message);
   }
 };

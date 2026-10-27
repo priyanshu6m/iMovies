@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MyBookings from "./pages/MyBookings";
 import Theatres from "./pages/Theatres";
+import Admin from "./pages/Admin";
 import "./App.css";
 
 function ScrollToTop() {
@@ -31,6 +32,7 @@ export default function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/my-bookings" element={<MyBookings />} />
               <Route path="/theatres" element={<Theatres />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

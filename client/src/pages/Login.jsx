@@ -134,6 +134,25 @@ export default function Login() {
           Don&apos;t have an account?{" "}
           <Link to="/register" id="go-to-register">Create one</Link>
         </p>
+
+        <div style={{ marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center" }}>
+          <button
+            type="button"
+            onClick={() => setForm({ email: "admin@imovies.in", password: "admin123" })}
+            style={{
+              background: "rgba(229, 9, 20, 0.08)",
+              border: "1px solid rgba(229, 9, 20, 0.25)",
+              color: "var(--accent)",
+              padding: "6px 14px",
+              borderRadius: "9999px",
+              fontSize: "0.78rem",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            ⚡ Demo Admin Login (admin@imovies.in)
+          </button>
+        </div>
       </div>
     </div>
   );

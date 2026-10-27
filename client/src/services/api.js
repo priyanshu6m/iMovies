@@ -54,6 +54,7 @@ export const authAPI = {
   login: (credentials) => apiRequest('/auth/login', { method: 'POST', body: credentials }),
   getMe: () => apiRequest('/auth/me'),
   logout: () => apiRequest('/auth/logout', { method: 'POST' }),
+  upgradeToAdmin: (secretKey) => apiRequest('/auth/upgrade-admin', { method: 'POST', body: { secretKey } }),
 };
 
 export const movieAPI = {

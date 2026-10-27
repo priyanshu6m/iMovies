@@ -132,18 +132,48 @@ export const createTheatre = async (req, res, next) => {
       });
     }
 
+    const formattedAmenities = Array.isArray(amenities)
+      ? amenities
+      : typeof amenities === 'string'
+      ? amenities.split(',').map((a) => a.trim()).filter(Boolean)
+      : ['Dolby Atmos', '4K Projection', 'Recliner Seats'];
+
     const theatre = await Theatre.create({
       name: name.trim(),
       address: address.trim(),
       city: city.trim(),
       location: location || `${address.trim()}, ${city.trim()}`,
-      amenities: amenities || ['Dolby Atmos', '4K Projection', 'Recliner Seats'],
+      amenities: formattedAmenities,
       rating: rating !== undefined ? Number(rating) : 4.5,
     });
 
+    // Create default screens if provided or automatically create Audi 1 & Audi 2
+    if (req.body.screens && Array.isArray(req.body.screens) && req.body.screens.length > 0) {
+      for (const scr of req.body.screens) {
+        if (scr.name) {
+          await Screen.create({
+            theatre: theatre._id,
+            name: scr.name.trim(),
+            screenType: scr.screenType || 'Standard',
+          });
+        }
+      }
+    } else {
+      await Screen.create({
+        theatre: theatre._id,
+        name: 'Audi 1 - Dolby Atmos',
+        screenType: 'Dolby Atmos',
+      });
+      await Screen.create({
+        theatre: theatre._id,
+        name: 'Audi 2 - Standard',
+        screenType: 'Standard',
+      });
+    }
+
     res.status(201).json({
       success: true,
-      message: 'Theatre created successfully',
+      message: 'Theatre created successfully with screens',
       theatre,
     });
   } catch (error) {

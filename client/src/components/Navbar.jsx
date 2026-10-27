@@ -13,6 +13,7 @@ import {
   Home,
   Clapperboard,
   Building2,
+  Shield,
 } from "lucide-react";
 import "./Navbar.css";
 
@@ -49,6 +50,7 @@ export default function Navbar() {
     { to: "/movies", label: "Movies", icon: <Clapperboard size={16} /> },
     { to: "/theatres", label: "Theatres", icon: <Building2 size={16} /> },
     { to: "/my-bookings", label: "My Bookings", icon: <Ticket size={16} /> },
+    ...(user?.role === "admin" ? [{ to: "/admin", label: "Admin", icon: <Shield size={16} /> }] : []),
   ];
 
   return (
@@ -120,6 +122,11 @@ export default function Navbar() {
               </button>
               {userDropdown && (
                 <div className="navbar__dropdown" id="navbar-dropdown">
+                  {user?.role === "admin" && (
+                    <Link to="/admin" className="navbar__dropdown-item" id="dropdown-admin" style={{ color: "var(--accent)" }}>
+                      <Shield size={15} /> Admin Portal
+                    </Link>
+                  )}
                   <Link to="/my-bookings" className="navbar__dropdown-item" id="dropdown-bookings">
                     <Ticket size={15} /> My Bookings
                   </Link>

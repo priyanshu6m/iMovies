@@ -77,6 +77,11 @@ export function AppProvider({ children }) {
     await fetchBookings();
   };
 
+  const updateUser = (userData) => {
+    setUser(userData);
+    localStorage.setItem("imovies_user", JSON.stringify(userData));
+  };
+
   const logoutUser = async () => {
     try { await authAPI.logout(); } catch { /* continue */ }
     setUser(null);
@@ -121,6 +126,7 @@ export function AppProvider({ children }) {
         token,
         login: loginUser,
         logout: logoutUser,
+        updateUser,
         bookings,
         bookingsLoading,
         addBooking,

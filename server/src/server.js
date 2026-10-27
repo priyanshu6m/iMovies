@@ -8,6 +8,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { connectDB, disconnectDB, isDatabaseConnected, getDatabaseStatus } from './db.js';
+import { ensureAdminUser } from './controllers/authController.js';
 import authRoutes from './routes/authRoutes.js';
 import movieRoutes from './routes/movieRoutes.js';
 import theatreRoutes from './routes/theatreRoutes.js';
@@ -170,6 +171,7 @@ export const startServer = async () => {
   try {
     console.log('⏳ Connecting to MongoDB...');
     await connectDB();
+    await ensureAdminUser();
 
     server = app.listen(PORT, () => {
       console.log(`🎬 iMovies Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
