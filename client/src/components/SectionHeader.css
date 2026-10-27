@@ -1,0 +1,66 @@
+/* SectionHeader.css */
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1.5rem;
+}
+
+.section-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.section-header__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.section-header__eyebrow::before {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+}
+
+.section-header__title {
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+.section-header__view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-header__view-all:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateX(3px);
+}
